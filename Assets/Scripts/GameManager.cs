@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     private int vidas = 3;
 
     private const int NIVEL_OBJETIVO = 3; // Nivel 3 donde se verifica la condición
-    private const int MONEDAS_OBJETIVO = 20; // Número de monedas necesarias
+    private const int MONEDAS_OBJETIVO = 10; // Número de monedas necesarias
 
     void Awake()
     {
