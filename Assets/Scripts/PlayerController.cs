@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     private bool puedeMoverse = true;
     private bool atacando;
 
+    private float tiempoFueraDelSuelo = 0f; // Para contar el tiempo fuera del suelo
+    private const float TIEMPO_LIMITE = 5f; // Tiempo límite para morir si no toca el suelo
+
     void Start()
     {
         mirigidbody2D = GetComponent<Rigidbody2D>();
@@ -30,6 +33,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         ProcesarMovimiento();
+        ComprobarTiempoFueraDelSuelo(); // Comprobar el tiempo fuera del suelo
     }
 
     void ProcesarMovimiento()
@@ -47,6 +51,11 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, longitudraycast, capaSuelo);
         enSuelo = hit.collider != null;
 
+        if (enSuelo)
+        {
+            tiempoFueraDelSuelo = 0f; // Reiniciar el temporizador al tocar el suelo
+        }
+
         if (enSuelo && Input.GetKeyDown(KeyCode.Space))
         {
             mirigidbody2D.AddForce(new Vector2(0f, fuerzaSalto), ForceMode2D.Impulse);
@@ -58,6 +67,26 @@ public class PlayerController : MonoBehaviour
         }
         animator.SetBool("enSuelo", enSuelo);
         animator.SetBool("Atacando", atacando);
+    }
+
+    private void ComprobarTiempoFueraDelSuelo()
+    {
+        if (!enSuelo)
+        {
+            tiempoFueraDelSuelo += Time.deltaTime; // Incrementar el tiempo fuera del suelo
+
+            if (tiempoFueraDelSuelo >= TIEMPO_LIMITE)
+            {
+                MuerteDelJugador(); // Llamar al método que maneja la muerte
+            }
+        }
+    }
+
+    private void MuerteDelJugador()
+    {
+        // Aquí puedes implementar la lógica para la muerte del jugador
+        Debug.Log("El jugador ha muerto por estar demasiado tiempo en el aire");
+        GameManager.Instance.perderVidas(); // Llama al método del GameManager para restar vidas
     }
 
     void OnDrawGizmos()

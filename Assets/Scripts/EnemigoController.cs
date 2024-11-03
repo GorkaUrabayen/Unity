@@ -151,7 +151,7 @@ public class EnemigoController : MonoBehaviour
     StopAllCoroutines(); // Esto detendrá el MovimientoAlternante y cualquier otra corrutina
 
     // Destruir el enemigo después de la animación de muerte
-    Invoke("DestruirEnemigo", 2f); // Ajusta el tiempo según la duración de la animación de muerte
+    Invoke("DestruirEnemigo", 0.5f); // Ajusta el tiempo según la duración de la animación de muerte
 }
 
 private void DestruirEnemigo()

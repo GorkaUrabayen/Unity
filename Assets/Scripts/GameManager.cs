@@ -30,17 +30,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void sumarPuntos(int puntosAsumar)
-    {
-        puntosTotales += puntosAsumar;
-        hud.actuallizarPuntos(PuntosTotales);
+   public void sumarPuntos(int puntosAsumar)
+{
+    puntosTotales += puntosAsumar;
+    hud.actuallizarPuntos(PuntosTotales);
 
-        // Verificar si estamos en el nivel 3 y hemos alcanzado las 20 monedas
-        if (SceneManager.GetActiveScene().buildIndex == NIVEL_OBJETIVO && PuntosTotales >= MONEDAS_OBJETIVO)
+    // Verificar si estamos en el nivel 3 y hemos alcanzado las 20 monedas
+    if (SceneManager.GetActiveScene().buildIndex == NIVEL_OBJETIVO && PuntosTotales >= MONEDAS_OBJETIVO)
+    {
+        CambiarNivel(4); // Cambia a la escena de Victoria (índice 4)
+        return;
+    }
+
+    // Nueva verificación para cambiar a la siguiente escena cuando se alcanzan las 10 monedas
+    if (puntosTotales >= 10)
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        
+        // Verifica que la siguiente escena esté dentro del rango de índices válidos
+        if (currentSceneIndex + 1 <= 3) // Cambiar solo a Nivel 1, Nivel 2, Nivel 3
         {
-            CambiarNivel(4); // Cambia a la escena número 4
+            CambiarNivel(currentSceneIndex + 1);
         }
     }
+}
 
     private void CambiarNivel(int indice)
     {
