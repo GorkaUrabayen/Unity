@@ -7,7 +7,7 @@ public class EnemigoController : MonoBehaviour
     public float cooldownAtaque = 1f;
     private bool puedeAtacar = true;
     private bool mirandoDerecha = true;
-
+    private bool estamuerto = false;
     private Animator animator;
     private Rigidbody2D mirigidbody2D;
     private SpriteRenderer spriteRenderer;
@@ -16,6 +16,8 @@ public class EnemigoController : MonoBehaviour
     public float longitudRaycastSuelo = 1f;
     public float tiempoDireccion = 3f;
     public float fuerzaGolpe;
+
+    private int contadorGolpes = 0; // Contador de golpes recibidos
 
     void Start()
     {
@@ -33,7 +35,7 @@ public class EnemigoController : MonoBehaviour
 
     private IEnumerator MovimientoAlternante()
     {
-        while (true)
+        while (!estamuerto) // Detener movimiento si el enemigo está muerto
         {
             MoverEnDireccion();
             yield return new WaitForSeconds(tiempoDireccion);
@@ -43,7 +45,7 @@ public class EnemigoController : MonoBehaviour
 
     private void MoverEnDireccion()
     {
-        if (!recibiendoDanio)
+        if (!recibiendoDanio && !estamuerto) // No mover si está muerto
         {
             float direccion = mirandoDerecha ? 1 : -1;
             mirigidbody2D.linearVelocity = new Vector2(direccion * velocidadMovimiento, mirigidbody2D.linearVelocity.y);
@@ -52,8 +54,11 @@ public class EnemigoController : MonoBehaviour
 
     private void CambiarDireccion()
     {
-        mirandoDerecha = !mirandoDerecha;
-        transform.localScale = new Vector3(mirandoDerecha ? 1 : -1, 1, 1);
+        if (!estamuerto) // Cambiar dirección solo si está vivo
+        {
+            mirandoDerecha = !mirandoDerecha;
+            transform.localScale = new Vector3(mirandoDerecha ? 1 : -1, 1, 1);
+        }
     }
 
     private void ActualizarAnimacion()
@@ -102,8 +107,9 @@ public class EnemigoController : MonoBehaviour
 
     public void RecibeDanio(Vector2 direccion, int cantidadDanio)
     {
-        if (!recibiendoDanio)
+        if (!recibiendoDanio && !estamuerto)
         {
+            contadorGolpes++; // Incrementar el contador de golpes
             recibiendoDanio = true;
 
             // Aplicamos la fuerza de retroceso en la dirección opuesta a la espada
@@ -113,12 +119,28 @@ public class EnemigoController : MonoBehaviour
             // Activamos una animación de daño si existe
             if (animator != null)
             {
-                animator.SetTrigger("recibirDanio"); // Asegúrate de tener un Trigger en la animación llamado "recibirDanio"
+                animator.SetTrigger("recibirDanio");
             }
 
-            // Iniciamos una rutina para desactivar el estado de daño después de un tiempo
-            StartCoroutine(RecuperarDeDanio(1f)); // Ajusta el tiempo de recuperación según necesites
+            // Verificamos si el enemigo ha recibido suficientes golpes
+            if (contadorGolpes >= 2)
+            {
+                Morir(); // Llamar al método de muerte si se han recibido dos golpes
+            }
+            else
+            {
+                StartCoroutine(RecuperarDeDanio(1f)); // Ajusta el tiempo de recuperación según necesites
+            }
         }
+    }
+
+    private void Morir()
+    {
+        estamuerto = true; // Marcar al enemigo como muerto
+        animator.SetBool("muerto", true); // Activar animación de muerte
+
+        // Opcional: Destruir el enemigo después de un tiempo
+        Destroy(gameObject, 2f); // Destruir el objeto después de 2 segundos
     }
 
     private IEnumerator RecuperarDeDanio(float tiempo)
