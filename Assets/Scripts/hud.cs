@@ -27,6 +27,7 @@ public class hud : MonoBehaviour
 
     public void desactivarVidas(int indice)
     {
+        
         vidas[indice].SetActive(false);
 
     }

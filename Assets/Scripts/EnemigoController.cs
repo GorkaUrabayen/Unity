@@ -62,9 +62,13 @@ public class EnemigoController : MonoBehaviour
     }
 
     private void ActualizarAnimacion()
-    {
-        animator.SetBool("correr", Mathf.Abs(mirigidbody2D.linearVelocity.x) > 0);
-    }
+{
+    // Si el enemigo está muerto, no actualices otras animaciones
+    if (estamuerto) return;
+
+    animator.SetBool("correr", Mathf.Abs(mirigidbody2D.linearVelocity.x) > 0);
+}
+
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -134,14 +138,27 @@ public class EnemigoController : MonoBehaviour
         }
     }
 
-    private void Morir()
-    {
-        estamuerto = true; // Marcar al enemigo como muerto
-        animator.SetBool("muerto", true); // Activar animación de muerte
+ private void Morir()
+{
+    estamuerto = true; // Marcar al enemigo como muerto
+    animator.SetBool("muerto", true); // Activar animación de muerte
+    
+    // Detener el movimiento del enemigo
+    mirigidbody2D.linearVelocity = Vector2.zero; // Establece la velocidad en cero
+    mirigidbody2D.useFullKinematicContacts = true; // Evita que se mueva por física
 
-        // Opcional: Destruir el enemigo después de un tiempo
-        Destroy(gameObject, 2f); // Destruir el objeto después de 2 segundos
-    }
+    // Detén cualquier corrutina de movimiento si está en curso
+    StopAllCoroutines(); // Esto detendrá el MovimientoAlternante y cualquier otra corrutina
+
+    // Destruir el enemigo después de la animación de muerte
+    Invoke("DestruirEnemigo", 2f); // Ajusta el tiempo según la duración de la animación de muerte
+}
+
+private void DestruirEnemigo()
+{
+    Destroy(gameObject); // Destruye el enemigo después de la animación de muerte
+}
+
 
     private IEnumerator RecuperarDeDanio(float tiempo)
     {
