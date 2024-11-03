@@ -124,6 +124,84 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 577128145406869972, guid: 334f770d6809a94419e858749be38011, type: 3}
   m_PrefabInstance: {fileID: 5604645692061450214}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &267778372
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 267778373}
+  - component: {fileID: 267778374}
+  m_Layer: 6
+  m_Name: RangoEspada
+  m_TagString: Espada
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &267778373
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267778372}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.34, y: -0.09, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 265713946}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &267778374
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267778372}
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.06459713, y: -0.02317655}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.9336147, y: 0.58282113}
+  m_EdgeRadius: 0
 --- !u!1 &313724707 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5247949350312349399, guid: e91bfea82aa2b764f92d1ee75b4b85ad, type: 3}
@@ -3071,7 +3149,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.2846527, y: -0.4343533}
+  m_Offset: {x: -0.19036543, y: -0.4343533}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -3081,7 +3159,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.7190094, y: 1.8801185}
+  m_Size: {x: 2.7226427, y: 1.8801185}
   m_EdgeRadius: 0
 --- !u!50 &1224861394
 Rigidbody2D:
@@ -4444,6 +4522,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 969047282}
     m_Modifications:
     - target: {fileID: 3167744972428056876, guid: 8b56838879f12f34d8878126b00585da, type: 3}
+      propertyPath: fuerzaGolpe
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3167744972428056876, guid: 8b56838879f12f34d8878126b00585da, type: 3}
       propertyPath: cooldownAtaque
       value: 2
       objectReference: {fileID: 0}
@@ -4453,7 +4535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3170260675396092778, guid: 8b56838879f12f34d8878126b00585da, type: 3}
       propertyPath: m_TagString
-      value: Suelo
+      value: Enemigo
       objectReference: {fileID: 0}
     - target: {fileID: 5447995249469108374, guid: 8b56838879f12f34d8878126b00585da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4538,11 +4620,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 577128145406869972, guid: 334f770d6809a94419e858749be38011, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.8
+      value: -22.61
       objectReference: {fileID: 0}
     - target: {fileID: 577128145406869972, guid: 334f770d6809a94419e858749be38011, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.95
+      value: -0.99
       objectReference: {fileID: 0}
     - target: {fileID: 577128145406869972, guid: 334f770d6809a94419e858749be38011, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4582,7 +4664,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5698597919645667029, guid: 334f770d6809a94419e858749be38011, type: 3}
       propertyPath: fuerzaGolpe
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5698597919645667029, guid: 334f770d6809a94419e858749be38011, type: 3}
       propertyPath: fuerzaSalto
@@ -4600,9 +4682,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: hero
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1579121606055444869, guid: 334f770d6809a94419e858749be38011, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 577128145406869972, guid: 334f770d6809a94419e858749be38011, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 267778373}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 334f770d6809a94419e858749be38011, type: 3}
 --- !u!1660057539 &9223372036854775807

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Suelo
   - Enemigo
+  - Epada
+  - Espada
   layers:
   - Default
   - TransparentFX
